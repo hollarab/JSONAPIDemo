@@ -1,9 +1,11 @@
 
 class User {
     var name:String
+    var phone:String
     
-    init(name:String) {
+    init(name:String, phone:String) {
         self.name = name
+        self.phone = phone
     }
 }
 
@@ -16,7 +18,7 @@ var users = [User]()
 
 for obj in userResponse.arrayValue {
     print(obj)
-    users.append(User(name:obj["name"].stringValue))
+    users.append(User(name:obj["name"].stringValue, phone:obj["phone"].stringValue))
 }
 
 users
