@@ -11,9 +11,12 @@ import Alamofire
 import SwiftyJSON
 
 class MasterViewController: UITableViewController {
+	
+	@IBOutlet weak var nameLabel: UILabel!
 
     var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
+	var users = [User]()
 
 
     override func viewDidLoad() {
@@ -36,6 +39,12 @@ class MasterViewController: UITableViewController {
                 if let value = response.result.value {
                     let json = JSON(value)
                     print("JSON: \(json)")
+					// Parse
+					for obj in json.arrayValue {
+						self.users.append(User(name: obj["name"].stringValue, website: obj["website"].stringValue, email: obj["email"].stringValue, phone: obj["phone"].stringValue))
+					}
+					print(self.users.count)
+					self.tableView.reloadData()
                 }
             case .Failure(let error):
                 print(error)
